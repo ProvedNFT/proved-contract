@@ -1,5 +1,5 @@
-const Migrations = artifacts.require("./Migrations.sol")
+const Proved = artifacts.require("Proved");
 
-module.exports = function(deployer) {
-  deployer.deploy(Migrations)
-}
+module.exports = function (deployer) {
+  deployer.deploy(Proved, '0x0000000000000000000000000000000000000000');
+};

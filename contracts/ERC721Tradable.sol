@@ -51,10 +51,11 @@ abstract contract ERC721Tradable is ERC721, ContextMixin, NativeMetaTransaction,
      * @dev Mints a token to an address with a tokenURI.
      * @param _to address of the future owner of the token
      */
-    function mintTo(address _to) public onlyOwner {
+    function mintTo(address _to) internal returns (uint256) {
         uint256 currentTokenId = _nextTokenId.current();
         _nextTokenId.increment();
         _safeMint(_to, currentTokenId);
+        return currentTokenId;
     }
 
     /**
@@ -67,9 +68,9 @@ abstract contract ERC721Tradable is ERC721, ContextMixin, NativeMetaTransaction,
 
     function baseTokenURI() virtual public pure returns (string memory);
 
-    function tokenURI(uint256 _tokenId) override public pure returns (string memory) {
-        return string(abi.encodePacked(baseTokenURI(), Strings.toString(_tokenId)));
-    }
+    //function tokenURI(uint256 _tokenId) override public pure returns (string memory); {
+    //    return string(abi.encodePacked(baseTokenURI(), Strings.toString(_tokenId)));
+    //}
 
     /**
      * Override isApprovedForAll to whitelist user's OpenSea proxy accounts to enable gas-less listings.
